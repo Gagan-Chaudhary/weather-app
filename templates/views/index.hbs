@@ -1,64 +1,36 @@
 <html lang="en">
   <head>
     {{>headerlinks}}
-    <title>Weather App</title>
+    <title>Weather</title>
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     {{>navbar}}
-    <div class="center">
-      <h1>Weather App</h1>
-      <form class="temp_form">
-        <input id="cityName" type="text" placeholder="Enter City" autocomplete="off" />
-        <input type="submit" id="submitBtn" value="search" >
-        {{!-- <button type="submit">Submit</button> --}}
-      </form>
-    </div>
-    <div class="temp_info">
-      <div class="top_layer">
-        <p id="day">Tuesday</p>
-        <p id="today_data">15 Oct</p>
-      </div>
-      <div class="main_layer">
-        <p id="city_name">Get Output here</p>
-        <div class="middle_layer hide_data">
-          <p id="temp"><span>0 <sup>o</sup>C</span></p>
-          <p id="temp_status"></p>
+    <div class="main animated fadeInDown delay-3s">
+      <div class="row mx-0 align-items-center">
+        <div class="col my-0 mx-0 text-center">
+          <h4>Welcome to weather App</h4>
+          <h3 class="">Get the latest Weather Info of your city</h3>
+          <a class="btn btn-primary" href="/weather" role="button">Check Now</a>
+        </div>
+        <div class="col p-2 p-0 justify-content-center center-block">
+          <img
+            src="https://image.freepik.com/free-vector/weather-concept-illustration_114360-1234.jpg"
+            class="img-fluid mx-auto justify-content-center center-block"
+            alt="Responsive image"
+          />
         </div>
       </div>
     </div>
-    <script>
-      const cityName = document.getElementById('cityName');
-      const city_name = document.getElementById('city_name');
-      const temp = document.getElementById('temp');
-      const temp_status = document.getElementById('temp_status');
-    const submitBtn = document.getElementById('submitBtn');
 
-const getInfo = async(event) => {
-  let city=cityName.value;
-  // console.log(city);
-  event.preventDefault();
-  console.log(cityName);
-  if(city===""){
-      city_name.innerText=`Please enter something`;
-  }
-  else{
-    try {
-       let url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2b04db940461a4da116259f5a8b82a65`;
-    // const response = fetch(url);
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data.main.temp);
-    temp.innerText=`${data.main.temp}`;
-      
-    } catch  {
-      city_name.innerText=`Please enter correct city name `;
-    }
-  }
-};
-
-submitBtn.addEventListener('click', getInfo);
-</script>
-    
- 
+    <div class="mx-0 my-0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#a2d9ff"
+          fill-opacity="1"
+          d="M0,160L60,160C120,160,240,160,360,149.3C480,139,600,117,720,128C840,139,960,181,1080,197.3C1200,213,1320,203,1380,197.3L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+        ></path>
+      </svg>
+    </div>
+    {{>footer}}
   </body>
 </html>
