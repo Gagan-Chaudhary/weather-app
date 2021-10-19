@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{>headerlinks}}
+  <title>Document</title>
+</head>
+<body>
+  {{>navbar}}
+  <div class="row mx-0 text-center p-5" >
+      <div class="row">
+        <h1>Weather App</h1>
+      </div>
+      <div class="row">
+        <form class="temp_form">
+        {{!-- <input id="cityName" type="text" placeholder="Enter City" autocomplete="off" /> --}}
+        <input id="cityName" type="text" placeholder="Enter City"  />
+        <input type="submit" id="submitBtn" value="search" >
+      </form>
+      </div>
+    </div>
+    {{!-- Weather Card  --}}
+    {{!-- Weather Card  --}}
+    <div class="weather-card">
+      <section class="vh-100" >
+  <div class="container py-5 h-100">
+
+    <div class="row d-flex justify-content-center align-items-center h-80">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+
+        <div class="card" id="card" style="color: #4B515D; border-radius: 35px; display:none">
+          <div class="card-body p-4">
+
+            <div class="d-flex">
+              <h6 class="flex-grow-1" id="city_update">Warsaw</h6>
+              <h6 id='time'>15:07</h6>
+            </div>
+
+            <div class="d-flex flex-column text-center mt-5 mb-4">
+              <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;" id="temp"> 13°C </h6>
+              <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;" id="error">  </h6>
+              <span class="small" style="color: #868B94" id="weather_main">Stormy</span>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1" style="font-size: 1rem;">
+                <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1" id='wind'> 40 km/h </span></div>
+                <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span class="ms-1" id='humidity'> 84% </span></div>
+                {{!-- <div><i class="fas fa-sun fa-fw" style="color: #868B94;"></i> <span class="ms-1"> 0.2h </span></div> --}}
+              </div>
+              <div>
+                <img id="icon" src="https://openweathermap.org/img/wn/10d@2x.png" width="100px">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+    </div>
+                           
+  {{>footer}}
+  <script>
+      const cityName = document.getElementById('cityName');
+      const error = document.getElementById('error');
+      const temp = document.getElementById('temp');
+      const city_update = document.getElementById('city_update');
+      const wind = document.getElementById('wind');
+      const humidity = document.getElementById('humidity');
+      const weather_main = document.getElementById('weather_main');
+      const date = document.getElementById('weather-date');
+      const time = document.getElementById('time');
+      const temp_status = document.getElementById('temp_status');
+      var icon=document.getElementById('icon');
+    const submitBtn = document.getElementById('submitBtn');
+    let dt=new Date();
+    console.log(icon)
+
+const getInfo = async(event) => {
+  let city=cityName.value;
+  event.preventDefault();
+  if(city===""){
+      error.innerText=`Please enter something`;
+      document.getElementById("card").style.display = "none";
+  }
+  else{
+    try {
+       let url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=2b04db940461a4da116259f5a8b82a65`;
+       document.getElementById("card").style.display = "block";
+    const response = await fetch(url);
+    const data = await response.json();
+    temp.innerText=`${data.main.temp}  °C`;
+    city_update.innerText=`${city}, ${data.sys.country}`;
+    wind.innerText=`${data.wind.speed} km/h`;
+    humidity.innerText=`${data.main.humidity} %`;
+    time.innerText=`${new Date().getHours()} : ${new Date().getMinutes()}`;
+    weather_main.innerText=`${data.weather[0].main}`;
+    icon.src=`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`; 
+    error.innerText=``;
+      
+    } catch  {
+      error.innerText=`Please enter correct city name `;
+    }
+  }
+};
+
+submitBtn.addEventListener('click', getInfo);
+</script>
+</body>
+</html>

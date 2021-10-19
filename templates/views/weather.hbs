@@ -1,11 +1,66 @@
 <html lang="en">
   <head>
     {{>headerlinks}}
-    <title>Weather</title>
+    <link rel="stylesheet" href="../style.css" />
+    <title>Weather App</title>
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     {{>navbar}}
-    <h2>Weather Update </h2>
-    <h4>Check weather here!!</h4>
+    <div class="center">
+      <h1>Weather App</h1>
+      <form class="temp_form">
+        <input id="cityName" type="text" placeholder="Enter City" autocomplete="off" />
+        <input type="submit" id="submitBtn" value="search" >
+        {{!-- <button type="submit">Submit</button> --}}
+      </form>
+    </div>
+    <div class="temp_info">
+      <div class="top_layer">
+        <p id="day">Tuesday</p>
+        <p id="today_data">15 Oct</p>
+      </div>
+      <div class="main_layer">
+        <p id="city_name">Get Output here</p>
+        <div class="middle_layer hide_data">
+          <p id="temp"><span>0 <sup>o</sup>C</span></p>
+          <p id="temp_status"></p>
+        </div>
+      </div>
+    </div>
+    {{>footer}}
+    <script>
+      const cityName = document.getElementById('cityName');
+      const city_name = document.getElementById('city_name');
+      const temp = document.getElementById('temp');
+      const temp_status = document.getElementById('temp_status');
+    const submitBtn = document.getElementById('submitBtn');
+
+const getInfo = async(event) => {
+  let city=cityName.value;
+  // console.log(city);
+  event.preventDefault();
+  console.log(cityName);
+  if(city===""){
+      city_name.innerText=`Please enter something`;
+  }
+  else{
+    try {
+       let url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2b04db940461a4da116259f5a8b82a65`;
+    // const response = fetch(url);
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data.main.temp);
+    temp.innerText=`${data.main.temp}`;
+      
+    } catch  {
+      city_name.innerText=`Please enter correct city name `;
+    }
+  }
+};
+
+submitBtn.addEventListener('click', getInfo);
+</script>
+    
+ 
   </body>
 </html>

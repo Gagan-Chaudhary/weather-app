@@ -4,7 +4,27 @@
     {{>headerlinks}}
     <title>About</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     {{>navbar}}
+    <div class="row mx-0">
+        <div class="col text-center my-auto">
+            <h3 class="display-4 p-5">Heyy 👋 I am Gagan Chaudhary</h3>
+            <h4 class="display-4 p-5">I am a full stack developer</h4>
+            <a class="btn btn-primary" href="https://www.gaganchaudhary.com/" role="button">About Me</a>
+            <div class="social">
+                <!-- Linkedin -->
+                <i class="fab fa-linkedin-in"></i>
+                <!-- Github -->
+                <i class="fab fa-github"></i>
+
+            </div>
+        </div>
+        <div class="col">
+            <img src="/developer.png" class="img-fluid" alt="Responsive image">
+        </div>
+        
+
+    </div>
+    {{>footer}}
 </body>
 </html>
