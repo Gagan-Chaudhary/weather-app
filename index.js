@@ -39,7 +39,7 @@ app.get("/weather", (req, res) => {
   res.render("test");
 });
 app.get("*", (req, res) => {
-  res.send("Page do not exist ");
+  res.render("404error");
 });
 
 app.listen(port, () => {
