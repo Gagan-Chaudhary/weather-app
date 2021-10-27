@@ -36,7 +36,7 @@ app.get("/about", (req, res) => {
 app.get("/weather", (req, res) => {
   // res.send("Checkout weather ");
   // res.render("weather");
-  res.render("test");
+  res.render("weather");
 });
 app.get("*", (req, res) => {
   res.render("404error");

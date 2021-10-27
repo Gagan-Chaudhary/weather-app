@@ -1,66 +1,227 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {{>headerlinks}}
-    <link rel="stylesheet" href="../style.css" />
-    <title>Weather App</title>
+    <title>Weather</title>
   </head>
   <body class="d-flex flex-column min-vh-100">
     {{>navbar}}
-    <div class="center">
-      <h1>Weather App</h1>
-      <form class="temp_form">
-        <input id="cityName" type="text" placeholder="Enter City" autocomplete="off" />
-        <input type="submit" id="submitBtn" value="search" >
-        {{!-- <button type="submit">Submit</button> --}}
-      </form>
-    </div>
-    <div class="temp_info">
-      <div class="top_layer">
-        <p id="day">Tuesday</p>
-        <p id="today_data">15 Oct</p>
-      </div>
-      <div class="main_layer">
-        <p id="city_name">Get Output here</p>
-        <div class="middle_layer hide_data">
-          <p id="temp"><span>0 <sup>o</sup>C</span></p>
-          <p id="temp_status"></p>
+
+    <div class="row m-0 main-div d-flex">
+      <div
+        class="
+          col
+          p-0
+          m-0
+          d-flex
+          flex-column
+          align-items-center
+          justify-content-center
+          text-center
+          max-vh-100
+          div1
+        "
+      >
+        {{!-- Form --}} {{!-- Form --}}
+        <div
+          class="
+            col
+            p-5
+            d-flex
+            flex-column
+            align-items-center
+            justify-content-center
+          "
+        >
+          <div class="row">
+            <h1 class="wel">Weather App</h1>
+          </div>
+          <div class="row">
+            <form class="temp_form">
+              <input
+                id="cityName"
+                class="form-control m-2"
+                type="text"
+                placeholder="Enter City"
+              />
+              <input
+                type="submit"
+                class="btn btn-primary"
+                id="submitBtn"
+                value="search"
+              />
+            </form>
+          </div>
+        </div>
+        {{!-- Result --}} {{!-- Result --}} {{!-- Result --}} {{!-- Result --}}
+        <div
+          class="
+            row
+            d-flex
+            flex-column
+            align-items-center
+            justify-content-center
+          "
+        >
+          <div class="col d-flex align-items-center justify-content-center">
+            <div
+              class="alert text-danger"
+              id="error1"
+              style="display: none"
+              role="alert"
+            >
+              Please enter something
+            </div>
+            <div
+              class="alert text-danger"
+              id="error2"
+              style="display: none"
+              role="alert"
+            >
+              Please enter correct city name
+            </div>
+          </div>
+          {{!-- Weather Card Div --}} {{!-- Weather Card Div --}}
+          <div
+            class="col d-flex align-items-center justify-content-center p-0 m-0"
+          >
+            <div class="weather-card">
+              <section class="vh-50">
+                <div class="container py-5 px-0">
+                  <div
+                    class="
+                      col
+                      d-flex
+                      justify-content-center
+                      align-items-center
+                      {{!-- h-80 --}}
+                    "
+                  >
+                    <div class="col-md-8 col-lg-6 col-xl-4">
+                      <div
+                        class="card"
+                        id="card"
+                        style="
+                          color: #4b515d;
+                          border-radius: 35px;
+                          display: none;
+                        "
+                      >
+                        <div class="card-body p-5">
+                          <div class="d-flex">
+                            <h6 class="flex-grow-1" id="city_update"></h6>
+                            <h6 id="time"></h6>
+                          </div>
+
+                          <div class="d-flex flex-column m-0 text-center">
+                            <h6
+                              class="display-4 mb-0 font-weight-bold"
+                              style="color: #1c2331"
+                              id="temp"
+                            ></h6>
+                            <span
+                              class="small"
+                              style="color: #868b94"
+                              id="weather_main"
+                            ></span>
+                          </div>
+
+                          <div class="d-flex align-items-center">
+                            <div class="flex-grow-1" style="font-size: 1rem">
+                              <div>
+                                <i
+                                  class="fas fa-wind fa-fw"
+                                  style="color: #868b94"
+                                ></i>
+                                <span class="ms-1" id="wind"> </span>
+                              </div>
+                              <div>
+                                <i
+                                  class="fas fa-tint fa-fw"
+                                  style="color: #868b94"
+                                ></i>
+                                <span class="ms-1" id="humidity"> </span>
+                              </div>
+                            </div>
+                            <div>
+                              <img
+                                id="icon"
+                                src="https://openweathermap.org/img/wn/10d@2x.png"
+                                width="100px"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
         </div>
       </div>
+      {{!--
+      <div class="col d-flex p-0 m-0 align-items-center justify-content-center">
+        <img
+          src="https://image.freepik.com/free-vector/woman-with-umbrella-girl-raincoat-dog-walking-rain-city-park-vector-illustration-family-activity-bad-weather-downpour-concept_74855-13290.jpg"
+          class="img-fluid mx-auto justify-content-center center-block"
+          alt="Weather"
+        />
+      </div>
+      --}}
     </div>
+
     {{>footer}}
     <script>
-      const cityName = document.getElementById('cityName');
-      const city_name = document.getElementById('city_name');
-      const temp = document.getElementById('temp');
-      const temp_status = document.getElementById('temp_status');
-    const submitBtn = document.getElementById('submitBtn');
+      const cityName = document.getElementById("cityName");
+      const error = document.getElementById("error");
+      const temp = document.getElementById("temp");
+      const city_update = document.getElementById("city_update");
+      const wind = document.getElementById("wind");
+      const humidity = document.getElementById("humidity");
+      const weather_main = document.getElementById("weather_main");
+      const date = document.getElementById("weather-date");
+      const time = document.getElementById("time");
+      const temp_status = document.getElementById("temp_status");
+      var icon = document.getElementById("icon");
+      const submitBtn = document.getElementById("submitBtn");
+      let dt = new Date();
+      console.log(icon);
+      const getInfo = async (event) => {
+        let city = cityName.value;
+        event.preventDefault();
+        if (city === "") {
+          document.getElementById("card").style.display = "none";
+          document.getElementById("error1").style.display = "block";
+          document.getElementById("error2").style.display = "none";
+        } else {
+          try {
+            let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=2b04db940461a4da116259f5a8b82a65`;
 
-const getInfo = async(event) => {
-  let city=cityName.value;
-  // console.log(city);
-  event.preventDefault();
-  console.log(cityName);
-  if(city===""){
-      city_name.innerText=`Please enter something`;
-  }
-  else{
-    try {
-       let url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2b04db940461a4da116259f5a8b82a65`;
-    // const response = fetch(url);
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data.main.temp);
-    temp.innerText=`${data.main.temp}`;
-      
-    } catch  {
-      city_name.innerText=`Please enter correct city name `;
-    }
-  }
-};
-
-submitBtn.addEventListener('click', getInfo);
-</script>
-    
- 
+            const response = await fetch(url);
+            const data = await response.json();
+            temp.innerText = `${data.main.temp}  °C`;
+            city_update.innerText = `${city}, ${data.sys.country}`;
+            wind.innerText = `${data.wind.speed} km/h`;
+            humidity.innerText = `${data.main.humidity} %`;
+            time.innerText = `${new Date().getHours()} : ${new Date().getMinutes()}`;
+            weather_main.innerText = `${data.weather[0].main}`;
+            icon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+            document.getElementById("card").style.display = "block";
+            document.getElementById("error1").style.display = "none";
+            document.getElementById("error2").style.display = "none";
+          } catch {
+            document.getElementById("card").style.display = "none";
+            document.getElementById("error1").style.display = "none";
+            document.getElementById("error2").style.display = "block";
+          }
+        }
+      };
+      submitBtn.addEventListener("click", getInfo);
+    </script>
   </body>
 </html>
