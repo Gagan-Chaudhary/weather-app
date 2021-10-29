@@ -173,4 +173,31 @@ footer a:hover {
   text-decoration: none;
 }
 
+.name {
+  font-family: "Pacifico";
+}
+.wel {
+  font-family: "Lobster";
+  font-size: 3.5rem;
+}
+.footer-div {
+  font-family: "Lobster";
+  font-size: 1.5rem;
+}
 
+.main-div {
+  flex: 1 1 auto;
+}
+
+/* media queries */
+@media (max-width: 1200px) {
+  .main-div {
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+  .div1 {
+    /* min-width: 100vh; */
+    min-height: 60vh;
+    /* border: 2px solid black; */
+  }
+}
